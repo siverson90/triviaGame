@@ -1,17 +1,17 @@
 var qAndABank= [
     {
       question: "object 1 question 1",
-      answer: ["this is answer1","this is answer2","this is answer3","this is answer4"],
+      answer: ["this is answer1 obj1","this is answer2obj1","this is answer3 obj1","this is answer4 obj1"],
       correctAnswer: 1,
     },
     {
       question: "object 2 question 1",
-      answer: ["this is answer1","this is answer2","this is answer3","this is answer4"],
+      answer: ["this is answer1 obj2","this is answer2 obj2","this is answer3 obj2","this is answer4 obj2"],
       correctAnswer: 1,
     },
     {
       question: "object 3 question 1",
-      answer: ["this is answer1","this is answer2","this is answer3","this is answer4"],
+      answer: ["this is answer1 obj3","this is answer2 obj3","this is answer3 obj3","this is answer4 obj3"],
       correctAnswer: 1,
     }
 ]
@@ -39,17 +39,34 @@ function renderQuestions(){
 
 // // Need to have a function for rendering HTML ONLY
 function renderToScreen(questionObj){
+  // Set question and answer(s) variables
   var questionHeader= document.createElement("h1");
   var createRadioBtn = document.createElement("INPUT");
   createRadioBtn.setAttribute("type","radio");
-  console.log(questionObj.question);
+
+  // give class of questions to the questions
+  questionHeader.className = "question";
+  // Add content from parameter to the content of H1's which is the question.
   questionHeader.textContent= questionObj.question;
+  // Append the question H1 to the div the wrapper all Q's and A's. 
   $("#questionContainer").append(questionHeader);
-  questionHeader.addClass = "question";
-  createRadioBtn.addClass= "answer";
-// for( var i = 0; ){}// for each answr add to y.appendChild z
+  
+  // give class of answer to all answers, BUT need to a way to identify which answer is correct
+  createRadioBtn.className= "answer";
+
+  //For loop should take each question in a give object and append 4 potential answers AND identify which answer is the correct one, with a VALUE attribute.
+  // console.log(questionObj);
+  // console.log(questionObj.question);
+  // console.log(questionObj.answer);
+
+for( var i = 0; i < questionObj.answer.length; i++){
+  console.log(questionObj.answer[i]);
+  // createRadioBtn.textContent = questionObj.question.answer[i];
+  // $("#question").append(createRadioBtn);
+  }
+// for each answr add to y.appendChild z
 // in FOR loop if variable i === correctAnswer index in object, then append correct
-}
+};
 
 renderQuestions();
 
