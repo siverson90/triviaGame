@@ -16,9 +16,9 @@ var qAndABank= [
     }
 ];
 
-var correctAnswers=9;
-var unanswerQuestions=3;
-var incorrectAnswers=2;
+var correctAnswers=0;
+var unanswerQuestions=0;
+var incorrectAnswers=0;
 
 var counter= 5;
 
@@ -144,7 +144,27 @@ function scoreRender(){
 
       scoreRender();
  
-      console.log(values);
+      var valToStr= values.split("&");
+
+      var IdArr=[];
+      var answersArr=[];
+
+
+      for( var i = 0; i <valToStr.length; i++){
+        var splitTemp =valToStr[i].split("=");
+        answersArr.push(splitTemp[1]);
+      }
+
+       for (var i = 0; i < qAndABank.length; i++){
+        console.log(qAndABank[i].correctAnswer);
+        console.log(answersArr[i]);
+        if (qAndABank[i].correctAnswer === answersArr[i]){ 
+          correctAnswers++ 
+          console.log(correctAnswers);
+        }
+
+      }
+
     });
 
   });
