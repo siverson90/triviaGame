@@ -16,9 +16,9 @@ var qAndABank= [
     }
 ];
 
-var correctAnswers;
-var unanswerQuestions;
-var incorrectAnswers;
+var correctAnswers=9;
+var unanswerQuestions=3;
+var incorrectAnswers=2;
 
 var counter= 5;
 
@@ -26,36 +26,44 @@ var intervalId;
 
 var appendDiv = $("#mainwrapper")
 
+var sumbitScoreCheck= false;
+
 
 // ********Render OBJ's to screen*******
 
 // Create fucntion for looping through elemetns that Calls the HMTL 
 
 function renderQuestions(){
-  for (var i = 0; i < qAndABank.length; i++) {
+  for (var i = 0; i < qAndABank.length; i++) 
+  {
       // create a new div, ID question + 1;
       var newDiv= $("<div>");
       newDiv.html("<h1>" + qAndABank[i].question + "</h1>");
-    for (var j = 0; j < qAndABank[i].answer.length; j++) {
-      var newInput = $("<input type='radio' name='test'>"+qAndABank[i].answer[j]+"<br>");
+    for (var j = 0; j < qAndABank[i].answer.length; j++) 
+    {
+      var newInput = $("<input type='radio'>"+qAndABank[i].answer[j]+"<br>");
+      newInput.attr("id", "radio-btn");
       newInput.val("q" + i + "a" + j);
       newDiv.append(newInput);
+      $("br").removeAttr("id", "radio-btn")
     }
     $("#mainwrapper").append(newDiv);
   }
-  var newBtn= $("<button>");
-  newBtn.attr("#submit");
-  newBtn.text("Submit");
-  $("#mainwrapper").append(newBtn);
 };
 
-// add listener for page submit
+function renderSubmit(){
+  var newBtn= $("<button>");
+  newBtn.html("submit");
+  newBtn.attr("id", "submit");
+  $("#mainwrapper").after(newBtn);
+}
 
 // *******TIMER*******
 
 function start() {
   intervalId = setInterval(count, 1000);
   renderQuestions();
+  renderSubmit();
 }
 
 function count(){
@@ -73,62 +81,65 @@ function stopTimer(){
 }
 
 function scoreRender(){
+    
     var newDivAnswers = $("<div>");
-    newDivSubmit.html(correctAnswers);
-    $("formId").html(newDivAnswers);
+    newDivAnswers.html(1);
+    $("#mainwrapper").replaceWith(newDivAnswers);
+    console.log(newDivAnswers);
 
     var newDivUnanswered = $("<div>");
-    newDivSubmit.html(unanswerQuestions);
-    $("formId").html(newDivUnanswered);
+    newDivUnanswered.html(2);
+    $("#mainwrapper").replaceWith(newDivUnanswered);
+    console.log(newDivUnanswered);
 
     var newDivIncorrect = $("<div>");
-    newDivSubmit.html(incorrectAnswers);
-    $("formId").html(newDivIncorrect);
-  }
+    newDivIncorrect.html(3);
+    $("#mainwrapper").replaceWith(newDivIncorrect);
+    console.log(newDivIncorrect);
+    alert("connected");
+
+    var sumbitScoreCheck = true;
+}
 
 function startGame(){
   var newButton= $("<button>");
   newButton.html("start");
-  newButton.attr("id","timer")
+  newButton.attr("id","start")
   $("#appendStart").append(newButton);
+
 }
-// onclick event to log score calculator
 
-// $("input").on("click", function(){
+function(countChecked){
   
-//   // for loop to count all the questions
+}
 
-//   // check if question is checked
-//   // if checked look at if corrrect OR false
-//   // Else increase unanswered ++
-//   if(value === qAndABank.correctAnswer){
-//     correctAnswers++
-//   }
-//   else {
-//     incorrectAnswers++
-//   }
-
-
-console.log(counter)
+// console.log(counter);
 
 // ******GAME SCORE LOGIC********
 
-// Game score function- called within timer FUNCTION
-// if (qAndABank[i].correctAnswer===this.val)
-
-// conditional- If radio button is checked && value is correct, else if correct answers ++, if radio button is check incorrect++, else unanswered ++
 
 // ******* MAIN Game *********
 $(document).ready(function() {
+  
   startGame();
 
+$("#start").one("click", start);
 
-  $("#timer").on("click", start);
+$( "input[type=checkbox]" ).on( "click", countChecked );
 
-  $("#submit").on("click", scoreRender);
+$("#submit").on("click", function(){
+  alert("connected");
+});
+
+  console.log(sumbitScoreCheck);
 
 });
 
+
+
+
+
+ 
 
 
 
