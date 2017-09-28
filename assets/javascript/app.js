@@ -14,13 +14,14 @@ var qAndABank= [
       answer: ["this is answer1 obj3","this is answer2 obj3","this is answer3 obj3","this is answer4 obj3"],
       correctAnswer: "q0a3", 
     }
-]
+];
 
 var correctAnswers;
 var unanswerQuestions;
 var incorrectAnswers;
 
 var counter= 5;
+
 var intervalId;
 
 var appendDiv = $("#mainwrapper")
@@ -38,21 +39,19 @@ function renderQuestions(){
     for (var j = 0; j < qAndABank[i].answer.length; j++) {
       var newInput = $("<input type='radio' name='test'>"+qAndABank[i].answer[j]+"<br>");
       newInput.val("q" + i + "a" + j);
-      // console.log(qAndABank[i].answer[j]);
-      // newInput.text(qAndABank[i].answer[j]);
       newDiv.append(newInput);
     }
     $("#mainwrapper").append(newDiv);
   }
   var newBtn= $("<button>");
-  newBtn.
+  newBtn.attr("#submit");
+  newBtn.text("Submit");
+  $("#mainwrapper").append(newBtn);
 };
 
 // add listener for page submit
 
 // *******TIMER*******
-$("#timer").on("click", start)
-
 
 function start() {
   intervalId = setInterval(count, 1000);
@@ -66,7 +65,6 @@ function count(){
 
   if (counter === 0){
     stopTimer();
-    alert("game over");
   }
 }
 
@@ -74,7 +72,44 @@ function stopTimer(){
   clearInterval(intervalId);
 }
 
-console.log(counter);
+function scoreRender(){
+    var newDivAnswers = $("<div>");
+    newDivSubmit.html(correctAnswers);
+    $("formId").html(newDivAnswers);
+
+    var newDivUnanswered = $("<div>");
+    newDivSubmit.html(unanswerQuestions);
+    $("formId").html(newDivUnanswered);
+
+    var newDivIncorrect = $("<div>");
+    newDivSubmit.html(incorrectAnswers);
+    $("formId").html(newDivIncorrect);
+  }
+
+function startGame(){
+  var newButton= $("<button>");
+  newButton.html("start");
+  newButton.attr("id","timer")
+  $("#appendStart").append(newButton);
+}
+// onclick event to log score calculator
+
+// $("input").on("click", function(){
+  
+//   // for loop to count all the questions
+
+//   // check if question is checked
+//   // if checked look at if corrrect OR false
+//   // Else increase unanswered ++
+//   if(value === qAndABank.correctAnswer){
+//     correctAnswers++
+//   }
+//   else {
+//     incorrectAnswers++
+//   }
+
+
+console.log(counter)
 
 // ******GAME SCORE LOGIC********
 
@@ -84,14 +119,16 @@ console.log(counter);
 // conditional- If radio button is checked && value is correct, else if correct answers ++, if radio button is check incorrect++, else unanswered ++
 
 // ******* MAIN Game *********
-$( document ).ready(function() {
-  var newButton= $("<button>");
-  newButton.html("start");
+$(document).ready(function() {
+  startGame();
+
 
   $("#timer").on("click", start);
 
-  $("input").on()
+  $("#submit").on("click", scoreRender);
+
 });
+
 
 
 
