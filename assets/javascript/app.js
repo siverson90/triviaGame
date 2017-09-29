@@ -31,7 +31,7 @@ var incorrectAnswers=0;
 
 var userHitSubmitBtn=false;
 
-var counter= 10;
+var counter= 45;
 
 var intervalId;
 
@@ -141,9 +141,8 @@ function scoreRender(){
     $("#start").one("click", start);
 
     // This function is meant to capture the values on a radio and pass to an array. That way I am able to provide answers to the user even if they don't submit the form. 
-    $('input[type=radio]:checked').change(function() {
-        alert("its true");
-    });
+    var holder =$('input:checked').val ();
+    console.log(holder);
 
     // The function is mean to render the scores when user clicks submit button
     // ********  NOT WORKING  ********
