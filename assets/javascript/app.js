@@ -1,26 +1,37 @@
 var qAndABank= [
     {
-      question: "Which option is not an array function?",
-      answer: ["this is answer1 obj 1","this is answer2 obj1","this is answer3 obj1","this is answer4 obj1"],
-      correctAnswer: "q0a1",
+      question: "Inside which HTML element do we put the JavaScript?",
+      answer: ["javascript","script","scripting","js"],
+      correctAnswer: "q0a0",
     },
     {
-      question: "What is the correct syntax for accessing an object?",
-      answer: ["this is answer1 obj 2","this is answer2 obj2","this is answer3 obj2","this is answer4 obj2"],
-      correctAnswer: "q0a3",
+      question: "Where is the correct place to insert a JavaScript?",
+      answer: ["The <body> section","The <head> section","Both the <head> section and the <body> section are correct","Neither are correct"],
+      correctAnswer: "q1a2",
     },
     {
       question: "How many days did it take to create Javascript?",
       answer: ["5 days","35 days","10 days","60 days"],
-      correctAnswer: "q0a3", 
+      correctAnswer: "q2a1", 
+    },
+    {
+      question: "How do you create a function in JavaScript?",
+      answer: ["function myFunction()","function:myFunction()","You can not create functions in javascript","function = myFunction()"],
+      correctAnswer: "q3a0", 
+    },
+    {
+      question: "How to write an IF statement in JavaScript?",
+      answer: ["if i = 5","if i == 5 then","if i = 5 then","if (i == 5)"],
+      correctAnswer: "q4a3", 
     }
 ];
 
 var correctAnswers=0;
-var unanswerQuestions=0;
 var incorrectAnswers=0;
 
-var counter= 5;
+var userHitSubmitBtn=false;
+
+var counter= 45;
 
 var intervalId;
 
@@ -65,10 +76,12 @@ function renderQuestions(){
       var newInput = $("<input type='radio'/>"+qAndABank[i].answer[j]+"<br>");
       newInput.attr("class", "radio-btn");
       newInput.attr("name", "radio" + i );
+      newInput.attr("checked");
       newInput.val("q" + i + "a" + j);
       newDiv.append(newInput);
-      $("br").removeAttr("class", "radio-btn")
-      $("br").removeAttr("name", "radio")
+      $("br").removeAttr("class", "radio-btn");
+      $("br").removeAttr("name", "radio");
+      // $("br").removeprop("checked", "false");
     }
     $("#mainwrapper").append(newDiv);
   }
@@ -79,9 +92,15 @@ function count(){
 
   $("#timeDisplay").html("<p>" + counter + "</p>")
 
-  if (counter === 0){
+  if (counter === 0 && userHitSubmitBtn === false){
     stopTimer();
-    // scoreRender();
+    scoreRender();
+  }
+  else if(counter === 0 && userHitSubmitBtn === true){
+    stopTimer();
+  }
+  else if(userHitSubmitBtn === true){
+    stopTimer();
   }
 }
 
@@ -97,14 +116,14 @@ function scoreRender(){
     $("#mainwrapper").replaceWith(newDivAnswers);
     console.log(newDivAnswers);
 
-    var newDivUnanswered = $("<div>");
-    newDivUnanswered.html("You have "+ unanswerQuestions + " unanswered questions");
-    $("#correct-answer").append(newDivUnanswered);
-    console.log(newDivUnanswered);
-
     var newDivIncorrect = $("<div>");
     newDivIncorrect.html("You have "+ incorrectAnswers + " incorrect answers");
     $("#correct-answer").append(newDivIncorrect);
+    console.log(newDivIncorrect);
+
+    var newDivTimer = $("<div>");
+    newDivTimer.html("Time remaining "+ counter + " seconds");
+    $("#correct-answer").append(newDivTimer);
     console.log(newDivIncorrect);
 
 };
@@ -127,12 +146,9 @@ function scoreRender(){
     // Start function calls 3 functions that: start timer, render questions/answers and submit button.
     $("#start").one("click", start);
 
-    // This function is meant to listen for clicks on radio buttons and use a conditional to determine if the answer was correct or incorrect or unanswered
-    // ********  May not need  ********
-   //  $("input[type='radio']").on("click",function(){
-   //    $(this).attr("value", "true");
-   //    console.log(this);
-   // })
+    $('input[type=radio]:checked').change(function() {
+        alert("its true");
+    });
 
     // The function is mean to render the scores when user clicks submit button
     // ********  NOT WORKING  ********
@@ -141,30 +157,33 @@ function scoreRender(){
       event.preventDefault();
 
       var values = $(this).serialize();
-
-      scoreRender();
  
       var valToStr= values.split("&");
 
-      var IdArr=[];
       var answersArr=[];
-
 
       for( var i = 0; i <valToStr.length; i++){
         var splitTemp =valToStr[i].split("=");
         answersArr.push(splitTemp[1]);
       }
 
+
        for (var i = 0; i < qAndABank.length; i++){
         console.log(qAndABank[i].correctAnswer);
         console.log(answersArr[i]);
-        if (qAndABank[i].correctAnswer === answersArr[i]){ 
-          correctAnswers++ 
-          console.log(correctAnswers);
-        }
+          if (qAndABank[i].correctAnswer === answersArr[i]){ 
+            correctAnswers++;
+            console.log(correctAnswers);
+          }
+          else {
+            incorrectAnswers++;
+            console.log(incorrectAnswers);
+          }
 
       }
+      userHitSubmitBtn=true;
 
+      scoreRender();
     });
 
   });
