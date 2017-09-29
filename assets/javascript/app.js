@@ -31,7 +31,7 @@ var incorrectAnswers=0;
 
 var userHitSubmitBtn=false;
 
-var counter= 45;
+var counter= 10;
 
 var intervalId;
 
@@ -128,12 +128,6 @@ function scoreRender(){
 
 };
 
-// Make function for conditional 
-
-// function submitBtnListener(){
-  
-//   console.log(scoreRender);
-// }
 
 // ******* MAIN Game *********
   
@@ -146,6 +140,7 @@ function scoreRender(){
     // Start function calls 3 functions that: start timer, render questions/answers and submit button.
     $("#start").one("click", start);
 
+    // This function is meant to capture the values on a radio and pass to an array. That way I am able to provide answers to the user even if they don't submit the form. 
     $('input[type=radio]:checked').change(function() {
         alert("its true");
     });
