@@ -6,7 +6,7 @@ var qAndABank= [
     },
     {
       question: "Where is the correct place to insert a JavaScript?",
-      answer: ["The <body> section","The <head> section","Both the <head> section and the <body> section are correct","Neither are correct"],
+      answer: ["The body section","The head section","Both the head section and the body section are correct","Neither are correct"],
       correctAnswer: "q1a2",
     },
     {
@@ -28,7 +28,6 @@ var qAndABank= [
 
 var correctAnswers=0;
 var incorrectAnswers=0;
-
 var userHitSubmitBtn=false;
 
 var counter= 45;
@@ -47,6 +46,7 @@ function start() {
   renderSubmit();
 }
 
+// Function called via document.ready. Displays start button to the user.
 function startGame(){
   var newButton= $("<button>");
   newButton.html("start");
@@ -55,6 +55,7 @@ function startGame(){
 
 }
 
+// Function invoked via Start function. Creats and displays submit button. 
 function renderSubmit(){
   var newBtn= $("<button>");
   newBtn.html("Submit");
@@ -65,6 +66,7 @@ function renderSubmit(){
   $("#appendSubmit").append(newBtn);
 }
 
+// Funciton called by Start function. Loops through and displays all questions to user and contains its object position, which will be matched at the end of the game to determine if user selected correct answers. 
 function renderQuestions(){
   for (var i = 0; i < qAndABank.length; i++) 
   {
@@ -87,6 +89,7 @@ function renderQuestions(){
   }
 };
 
+// function called by Start. Count Func decrements count and contains logic for when to stop timer and render score if the user doesn't click the sumbit button.
 function count(){
   counter--;
 
@@ -109,25 +112,26 @@ function stopTimer(){
 }
 
 function scoreRender(){
-    
+    // Display correct answer count to user
     var newDivAnswers = $("<div>");
     newDivAnswers.attr("id", "correct-answer")
     newDivAnswers.html("You have "+ correctAnswers + " correct answers ");
     $("#mainwrapper").replaceWith(newDivAnswers);
     console.log(newDivAnswers);
 
+    // Display incorrect answer count to user
     var newDivIncorrect = $("<div>");
     newDivIncorrect.html("You have "+ incorrectAnswers + " incorrect answers");
     $("#correct-answer").append(newDivIncorrect);
     console.log(newDivIncorrect);
 
+    // // Display seconds left to user
     var newDivTimer = $("<div>");
     newDivTimer.html("Time remaining "+ counter + " seconds");
     $("#correct-answer").append(newDivTimer);
     console.log(newDivIncorrect);
 
 };
-
 
 // ******* MAIN Game *********
   
@@ -141,8 +145,11 @@ function scoreRender(){
     $("#start").one("click", start);
 
     // This function is meant to capture the values on a radio and pass to an array. That way I am able to provide answers to the user even if they don't submit the form. 
-    var holder =$('input:checked').val ();
-    console.log(holder);
+    $('input').change(function(){
+      var result = $(this).val();
+      console.log(this);
+      console.log(result);
+    })
 
     // The function is mean to render the scores when user clicks submit button
     // ********  NOT WORKING  ********
@@ -160,7 +167,6 @@ function scoreRender(){
         var splitTemp =valToStr[i].split("=");
         answersArr.push(splitTemp[1]);
       }
-
 
        for (var i = 0; i < qAndABank.length; i++){
         console.log(qAndABank[i].correctAnswer);
